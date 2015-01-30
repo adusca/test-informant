@@ -102,6 +102,7 @@ class ReportGenerator(object):
                 raw_data['suites'][suite.name][platform] = {
                     'active': suite.active_tests,
                     'skipped': suite.skipped_tests,
+                    'disabled': suite.disabled_tests,
                 }
         return raw_data
 

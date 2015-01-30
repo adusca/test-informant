@@ -61,10 +61,13 @@ class Worker(threading.Thread):
 
         active = []
         skipped = []
+        disabled = []
 
         def append_active_or_skipped(log_item):
             if log_item['status'] == 'SKIP':
                 skipped.append(log_item['test'])
+                if 'disabled' in log_item['message'] or 'Disabled' in log_item['message']:
+                    disabled.append(log_item['test'])
             else:
                 active.append(log_item['test'])
 
@@ -95,6 +98,7 @@ class Worker(threading.Thread):
                     if suite.name == suite_name:
                         active = set(active) | set(suite.active_tests)
                         skipped = set(skipped) | set(suite.skipped_tests)
+                        disabled = set(disabled) | set(suite.disabled_tests)
                         build.suites.remove(suite)
 
                         # we are counting these tests twice
@@ -116,6 +120,7 @@ class Worker(threading.Thread):
                     name=suite_name,
                     active_tests=sorted(active),
                     skipped_tests=sorted(skipped),
+                    disabled_tests=sorted(disabled),
                 )
                 s.refcount += 1
                 s.save()

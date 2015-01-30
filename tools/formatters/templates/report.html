@@ -191,12 +191,25 @@
                                 </ol>
                             </li>
                             <li>
-                                <label class="menu_label" for="{{ suite }}-{{ platform }}-removed">tests disabled since {{ from_date }}: {{ data.removed|length }}</label>
+                                <label class="menu_label" for="{{ suite }}-{{ platform }}-removed">tests removed since {{ from_date }}: {{ data.removed|length }}</label>
                                 <input type="checkbox" id="{{ suite }}-{{ platform }}-removed" />
                                 <ol>
                                     <li>
                                         <div>
                                         {% for test in data.removed %}
+                                            <p><a href="http://dxr.mozilla.org/mozilla-central/source/{{ test }}">{{ test }}</a></p>
+                                        {% endfor %}
+                                        </div>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                <label class="menu_label" for="{{ suite }}-{{ platform }}-removed">tests disabled since {{ from_date }}: {{ data.disabled|length }}</label>
+                                <input type="checkbox" id="{{ suite }}-{{ platform }}-disabled" />
+                                <ol>
+                                    <li>
+                                        <div>
+                                        {% for test in data.disabled %}
                                             <p><a href="http://dxr.mozilla.org/mozilla-central/source/{{ test }}">{{ test }}</a></p>
                                         {% endfor %}
                                         </div>

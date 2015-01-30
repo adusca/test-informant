@@ -15,6 +15,7 @@ class Suite(Document):
     name = StringField(required=True)
     active_tests = ListField(required=True)
     skipped_tests = ListField(required=True)
+    disabled_tests = ListField(required=False)
     refcount = IntField(default=0)
 
 class Build(Document):
